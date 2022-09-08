@@ -1,9 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using SIV;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+string connection = builder.Configuration.GetConnectionString("Pokemons");
+builder.Services.AddDbContext<SIVContext>(options => options.UseSqlServer(connection));
+builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
